@@ -1,14 +1,40 @@
-# ReactJS "Login with Passkey" template
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This repository is a template that uses [Pangea AuthN](https://l.pangea.cloud/6YIN6PM) to enable Passkey based authentication in < 2mins
+## Getting Started
 
-For full instructions, refer to this [blog](https://pangea.cloud/blog/add-passkeys-to-reactjs-in-2mins/?utm_source=github&utm_medium=reactjs-passkeys-readme).
+First, run the development server:
 
-## Deploy
-<!-- Deploy with Vercel button -->
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpangeacyber%2Freact-authn-passkeys-template&env=REACT_APP_LOGIN_URL,REACT_APP_CLIENT_TOKEN,REACT_APP_PANGEA_DOMAIN&envDescription=To%20get%20the%20following%20environment%20variables%2C%20signup%20for%20a%20free%20Pangea%20account%20at%20https%3A%2F%2Fl.pangea.cloud%2F6YIN6PM%20and%20grab%20your%20tokens%20from%20AuthN%20%3E%20Overview%20%3E%20Tokens&envLink=https%3A%2F%2Fl.pangea.cloud%2F6YIN6PM&demo-title=ReactJS%20%2B%20Pangea%20AuthN%20%22Login%20with%20Passkey%22%20Template&demo-description=Add%20Pangea%20AuthN%20%22Login%20with%20Passkey%22%20in%20%3C%202mins%20with%20this%20template.)
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Watch in Action ✨
-![Login with Passkeys demo](./misc/passkey-demo.gif)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-<a href="https://www.producthunt.com/posts/passkeys-by-pangea?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-passkeys&#0045;by&#0045;pangea" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=447101&theme=light" alt="Passkeys&#0032;by&#0032;Pangea - Authenticate&#0032;Smarter&#0044;&#0032;Not&#0032;Harder&#0032;with&#0032;Passkeys | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
