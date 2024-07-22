@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import TimeFilter from '@/components/TimeFilter';
+import { Toaster } from '@/components/ui/toaster';
 
 const Map = dynamic(() => import('@/components/Map'),{ 
     loading: () => <p>A map is loading</p>,
@@ -25,14 +26,28 @@ export default function Completion() {
     return (
      <>
       {authenticated ? (
-        <main>
-          <h1>You're Authenticated</h1>
-          <TimeFilter/>
-          <Map/>
-        </main>
+        <div className="max-w-2xl mx-auto p-4 sm:p-6 md:p-8">
+          <div className="space-y-4">
+           <div>
+             <h1 className="text-2xl font-bold">You're Authenticated</h1>
+             <p className="text-muted-foreground">Choose a start and end date and time for your event.</p>
+           </div>
+           <TimeFilter/>
+           <Map/>
+           <Toaster />
+          </div>
+        </div>
+          
        ):  (
-        <h1>YOU"RE NOT AUTHENTICATED</h1>
+        <div className="max-w-2xl mx-auto p-4 sm:p-6 md:p-8">
+          <div className="space-y-4">
+            <div>
+              <h1 className="text-2xl font-bold">You're NOT Authenticated</h1>
+            </div>
+          </div>
+        </div>
        )}
        </>
     )
 }
+
