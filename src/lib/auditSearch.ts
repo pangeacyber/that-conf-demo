@@ -42,8 +42,10 @@ export default async function auditSearch({
 
     try {
       const logResponse = await audit.search('',{end: (end).toAbsoluteString() , start: (start).toAbsoluteString()}, {});
-       
+      arr.splice(0, arr.length);
+
       if(logResponse.success) {
+        
         logResponse.result.events.forEach(element => {
           let service_feat = element.envelope.event.action.toString()
           let time = element.envelope.event.timestamp.toString()
@@ -59,6 +61,7 @@ export default async function auditSearch({
               let lat = context.request.intelligence.ip_intel.geolocation.latitude;
               let long = context.request.intelligence.ip_intel.geolocation.longitude;
               console.log("Place Lat: " + lat + " and long: " + long)
+              
               addMarker( username,lat, long, time);
             }
           }
