@@ -2,9 +2,7 @@
 
 import { PangeaConfig, AuditService, PangeaErrors} from 'pangea-node-sdk';
 import { ZonedDateTime } from "@internationalized/date";
-import { login_marker } from './utils';
-
-const arr: login_marker[] = [];
+import { UserLocationType } from './utils';
 
 const checkIfEmail = (email: string) => {
   // Source - OWASP https://owasp.org/www-community/OWASP_Validation_Regex_Repository
@@ -12,9 +10,6 @@ const checkIfEmail = (email: string) => {
   return emailRegex.test(email.trim());
 }
 
-export type UserLocationType = {
-  [username: string]: {lat: string, long: string}
-}
 
 export default async function auditSearch({
   startTime,
@@ -55,7 +50,6 @@ export default async function auditSearch({
     try {
       // search query to fetch all users who logged in and signedup
       const logResponse = await audit.search('action:"login" OR action:"user self signup"',{end: (end).toAbsoluteString() , start: (start).toAbsoluteString()}, {});
-      arr.splice(0, arr.length);
 
       if(logResponse.success) {
         
@@ -76,8 +70,7 @@ export default async function auditSearch({
               let long = context.request.intelligence.ip_intel.geolocation.longitude;
               console.log("Place Lat: " + lat + " and long: " + long)
               
-              usersWithLocation[username] = {lat: lat, long: long}
-              addMarker( username,lat, long, time);
+              usersWithLocation[username] = {lat: lat, long: long, time: time}
             }
           }
         });
@@ -94,16 +87,4 @@ export default async function auditSearch({
   } else {
     return false;
   }
-}
-
-
-function addMarker(username: string, latitude: number, longitude: number, time: string){
-
-  let temp: login_marker = 
-  { username: username, 
-    lat: latitude, 
-    long: longitude, 
-    time: time }
-
-    arr.push(temp);
 }
