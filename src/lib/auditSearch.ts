@@ -2,7 +2,9 @@
 
 import { PangeaConfig, AuditService, PangeaErrors} from 'pangea-node-sdk';
 import { ZonedDateTime } from "@internationalized/date";
-import { Console } from 'console';
+import { login_marker } from './utils';
+
+const arr: login_marker[] = [];
 
 export default async function auditSearch({
   startTime,
@@ -40,31 +42,35 @@ export default async function auditSearch({
 
     try {
       const logResponse = await audit.search('',{end: (end).toAbsoluteString() , start: (start).toAbsoluteString()}, {});
-      //console.log("Response: %s", JSON.stringify(logResponse.result));
-
+      arr.splice(0, arr.length);
 
       if(logResponse.success) {
-        console.log("SUCCESS");
+        
         logResponse.result.events.forEach(element => {
-
-          //console.log(element.envelope.event.external_context)
-
           let service_feat = element.envelope.event.action.toString()
+          let time = element.envelope.event.timestamp.toString()
           let context_str = element.envelope.event.external_context.toString()
           let context = JSON.parse(element.envelope.event.external_context.toString())
 
           if (service_feat.includes("login")) {
             console.log("PERSON" + context.actor.username)
+            let username = context.actor.username
           
-            if(context_str.includes("intelligence"))
-              console.log("found")
-              //console.log("Place "+ JSON.stringify(context.request.intelligence.))
+            if(username.includes("@") && context_str.includes("city")){
+              //console.log("found " + JSON.stringify(context.request.intelligence.ip_intel.geolocation))
+              let lat = context.request.intelligence.ip_intel.geolocation.latitude;
+              let long = context.request.intelligence.ip_intel.geolocation.longitude;
+              console.log("Place Lat: " + lat + " and long: " + long)
+              
+              addMarker( username,lat, long, time);
+            }
           }
-          
         });
-          
-        //let locations = getLocations(logResponse.result.events);
 
+        if(arr.length > 0){
+          return arr;
+        }
+          
       }
     } catch (err) {
       if (err instanceof PangeaErrors.APIError) {
@@ -79,17 +85,13 @@ export default async function auditSearch({
 }
 
 
-function getLocations(res: any){
+function addMarker(username: string, latitude: number, longitude: number, time: string){
 
-  console.log("IN Get Locations")
+  let temp: login_marker = 
+  { username: username, 
+    lat: latitude, 
+    long: longitude, 
+    time: time }
 
-  let result = res;
-
-  console.log(result)
-
-  for(let key in result){
-
-    if(key.includes("external_context"))
-      console.log( key + ": " + result[key])
-  }
+    arr.push(temp);
 }

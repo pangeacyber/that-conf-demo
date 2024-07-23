@@ -32,7 +32,6 @@ export default function Completion() {
              <h1 className="text-2xl font-bold">You're Authenticated</h1>
              <p className="text-muted-foreground">Choose a start and end date and time for your event.</p>
            </div>
-           <TimeFilter/>
            <Map/>
            <Toaster />
           </div>
