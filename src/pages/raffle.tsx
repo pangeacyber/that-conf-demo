@@ -17,9 +17,9 @@ export default function Raffle() {
     }, [error, authenticated, loading]);  
    
     return (
-     <>
-     <RaffleComponent />
-       </>
+      <>
+        <RaffleComponent user={user} />
+      </>
     )
 }
 

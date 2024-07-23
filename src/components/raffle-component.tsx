@@ -9,18 +9,16 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import axios from "axios"
 
-export default function RaffleComponent() {
+export default function RaffleComponent({user}) {
   const [winner, setWinner] = useState(null)
-  const pickWinner = () => {
-    setWinner(null)
-    setTimeout(() => {
-      setWinner({
-        email: "john@example.com",
-        profilePic: "/placeholder-user.jpg",
-        name: "John Doe",
-      })
-    }, 1500)
+  const pickWinner = async () => {
+    const winner = await axios.post("/api/pick-winner",  {
+      startTime: value.start,
+      endTime: value.end
+    })
+    setWinner(winner);
   }
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-background">
@@ -36,7 +34,7 @@ export default function RaffleComponent() {
           <Card className="bg-card text-card-foreground">
             <CardContent className="flex items-center gap-4">
               <Avatar className="h-16 w-16">
-                <AvatarImage src="/placeholder-user.jpg" />
+                <AvatarImage src={winner.image_url} />
                 <AvatarFallback>{winner.name.split(" ").map((word) => word[0])}</AvatarFallback>
               </Avatar>
               <div className="grid gap-1">
