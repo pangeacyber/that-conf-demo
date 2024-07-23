@@ -8,11 +8,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const auditResp: UserLocationType = await auditSearch(req.body)
             const userEmailList = Object.keys(auditResp);
             const winner = userEmailList[Math.floor(Math.random()*userEmailList.length)]
+            console.log(winner);
             const winnerProfile = await getUserProfile(winner);
 
-            return winnerProfile;
+            res.status(200).json(winnerProfile);
         }
         catch (error) {
+            console.error(error);
             res.status(403).json({message: "No PANGEA_TOKEN found on server."})
         }
     } else {

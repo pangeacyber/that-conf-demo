@@ -29,10 +29,21 @@ export default function Map() {
         {}
     )
 
-     useEffect( () => {
-        let res = getMarkerData(value.start, value.end)
-        setMarkerData(res);
+     useEffect(() => {
+        const fetchData = async () => {
+            let res = await getMarkerData(value.start, value.end)
+            console.log(res);   
+            setMarkerData(res);
+        }
+
+        fetchData().catch(console.error)
     }, [value]);
+
+
+    useEffect(() => {
+        console.log(markerData);
+    }, [markerData])
+
     
 
     return(
@@ -53,7 +64,7 @@ export default function Map() {
                 async e =>
                 {
                     console.log("HEY THIS IS THE VALUE ON SUBMIT" + JSON.stringify(value))
-                    let res = getMarkerData(value.start, value.end);
+                    let res = await getMarkerData(value.start, value.end);
                     setMarkerData(res);
                 }
             }
@@ -72,16 +83,16 @@ export default function Map() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {Object.entries(markerData).map((key,value) => {
-                    return(
-                        <Marker position={[42.515, -96.79]}>
-                            <Popup>
-                                {key.toString()} & {value}
-                            </Popup>
-                        </Marker>
-                    );
-                }) 
-            }
+            {Object.keys(markerData).length > 0 ?
+                Object.entries(markerData).map((key,value) => (
+                            <Marker position={[key[1].lat, key[1].long]}>
+                                <Popup>
+                                    email: {key[0].toString()}
+                                </Popup>
+                            </Marker>
+                ))
+            : <></>}
+
         </MapContainer>
         </div>
     )
@@ -101,5 +112,5 @@ async function getMarkerData(start:ZonedDateTime, end: ZonedDateTime) {
         })
     })
 
-    return res;
+    return res.data;
 }

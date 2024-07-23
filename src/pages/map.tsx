@@ -2,7 +2,6 @@ import { useAuth } from '@pangeacyber/react-auth';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import TimeFilter from '@/components/TimeFilter';
 import { Toaster } from '@/components/ui/toaster';
 
 const Map = dynamic(() => import('@/components/Map'),{ 
