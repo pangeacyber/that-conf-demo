@@ -8,7 +8,7 @@ export default async function getUserProfile(email: string) {
     const authn = new AuthNService(token as string, config);
     const response = await authn.user.profile.getProfile(
         {
-          email: "joe.user@email.com",
+          email: email,
         }
     );
 

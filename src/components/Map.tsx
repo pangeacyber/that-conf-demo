@@ -35,6 +35,12 @@ export default function Map() {
 
         fetchData().catch(console.error)
     }, [value]);
+
+
+    useEffect(() => {
+        console.log(markerData);
+    }, [markerData])
+
     
 
     return(
@@ -77,14 +83,15 @@ export default function Map() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {Object.keys(markerData).length > 0 ?
-                Object.entries(markerData).map((key) => (
-                    <Marker position={[key[1].lat, key[1].long]}>
-                        <Popup>
-                            email: {key[0].toString()}
-                        </Popup>
-                    </Marker>
+                Object.entries(markerData).map((key,value) => (
+                            <Marker position={[key[1].lat, key[1].long]}>
+                                <Popup>
+                                    email: {key[0].toString()}
+                                </Popup>
+                            </Marker>
                 ))
             : <></>}
+
         </MapContainer>
         </div>
     )
