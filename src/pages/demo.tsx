@@ -1,16 +1,17 @@
 import { useAuth } from '@pangeacyber/react-auth';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import TimeFilter from '@/components/TimeFilter';
 import { Toaster } from '@/components/ui/toaster';
+import { NavBar } from '@/components/ui/navbar';
+import Selector from '@/components/ui/selector';
 
 const Map = dynamic(() => import('@/components/Map'),{ 
     loading: () => <p>A map is loading</p>,
     ssr: false,
   });
 
-export default function Completion() {
+export default function Demo() {
 
     const {authenticated, error, logout, loading, user} = useAuth()
     const router = useRouter();
@@ -26,14 +27,22 @@ export default function Completion() {
     return (
      <>
       {authenticated ? (
-        <div className="max-w-2xl mx-auto p-4 sm:p-6 md:p-8">
-          <div className="space-y-4">
-           <div>
-             <h1 className="text-2xl font-bold">You're Authenticated</h1>
-             <p className="text-muted-foreground">Choose a start and end date and time for your event.</p>
-           </div>
-           <Map/>
-           <Toaster />
+        <div>
+          <NavBar/>
+
+          <div className="max-w-2xl mx-auto p-4 sm:p-6 md:p-8">
+
+            <div className="space-y-4">
+              <div>
+                <h1 className="text-2xl font-bold">You're Authenticated</h1>
+                <p className="text-muted-foreground">Choose a start and end date and time for your event.</p>
+              </div>
+              <Map/>
+
+              <Toaster />
+              <div className="relative min-h-screen">
+              </div>
+            </div>
           </div>
         </div>
           

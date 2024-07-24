@@ -1,6 +1,15 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { AuthProvider } from "@pangeacyber/react-auth";
+import { Inter as FontSans } from "next/font/google"
+
+import { cn } from "@/lib/utils"
+ 
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
+ 
 
 export default function App({ Component, pageProps }: AppProps) {
   const hostedLoginURL = process?.env?.NEXT_PUBLIC_AUTHN_HOSTED_LOGIN_URL || "";
@@ -11,7 +20,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <AuthProvider config={authConfig} loginUrl={hostedLoginURL}>
-      <Component {...pageProps} />
+      <Component className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable)} {...pageProps} />
     </AuthProvider>
   )
 }

@@ -1,10 +1,8 @@
-import { Inter } from 'next/font/google'
 import { CallbackParams, useAuth } from '@pangeacyber/react-auth';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AuthScreen from '../components/AuthScreen';
 
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const { user, authenticated, login } = useAuth();
@@ -12,7 +10,7 @@ export default function Home() {
   
   useEffect(() => {
     if(authenticated) {
-      router.push('/map')
+      router.push('/demo')
     }
   }, [user, authenticated])
 
