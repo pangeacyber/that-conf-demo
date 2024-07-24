@@ -6,14 +6,11 @@ import "leaflet-defaulticon-compatibility";
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import React, { useEffect } from "react";
-import { Button } from "@nextui-org/react";
 import axios from 'axios';
 import { toast } from "./ui/use-toast";
 import {DateRangePicker} from "@nextui-org/react";
 import {now, getLocalTimeZone,ZonedDateTime } from "@internationalized/date";
-import { UserLocationType } from '../lib/utils';
-
-
+import { Button } from "./ui/button";
 
 export default function Map() {
     let nw =  now(getLocalTimeZone());
@@ -29,7 +26,7 @@ export default function Map() {
         {}
     )
 
-     useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             let res = await getMarkerData(value.start, value.end)
             console.log(res);   
@@ -60,6 +57,7 @@ export default function Map() {
                         />
                     </div>
                 </div>
+               
             <Button type="submit" className="ml-auto" onClick={
                 async e =>
                 {
@@ -71,6 +69,7 @@ export default function Map() {
             >
                 Confirm
             </Button>
+
         </div>
 
         <MapContainer 
