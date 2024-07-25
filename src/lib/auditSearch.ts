@@ -3,6 +3,7 @@
 import { PangeaConfig, AuditService, PangeaErrors} from 'pangea-node-sdk';
 import { ZonedDateTime } from "@internationalized/date";
 import { UserLocationType } from './utils';
+import crypto from 'crypto';
 
 const checkIfEmail = (email: string) => {
   // Source - OWASP https://owasp.org/www-community/OWASP_Validation_Regex_Repository
@@ -49,7 +50,7 @@ export default async function auditSearch({
 
     try {
       // search query to fetch all users who logged in and signedup
-      const logResponse = await audit.search('action:login OR action:"user self signup"',{start: (start).toAbsoluteString()}, {});
+      const logResponse = await audit.search('', {start: (start).toAbsoluteString(), order: "asc", search_restriction: { action: ["login", "user self signup"] }, limit: 10000, max_results: 10000}, {});
 
       if(logResponse.success) {
         logResponse.result.events.forEach(element => {
@@ -65,12 +66,16 @@ export default async function auditSearch({
           let long = context.request?.intelligence?.ip_intel?.geolocation?.longitude;
           let is_vpn = context.request?.intelligence?.ip_intel?.is_vpn;
           let is_proxy = context.request?.intelligence?.ip_intel?.is_proxy;
+          console.log("PERSON" + context.actor.username)
+          console.log(context.request.request_id)
+          console.log("Place Lat: " + lat + " and long: " + long)
 
           if(checkIfEmail(username) && lat && long){
-            console.log("PERSON" + context.actor.username)
-            console.log("Place Lat: " + lat + " and long: " + long)
+
+            const hashId = createUniqueUserLocId(username, lat, long);
             
-            usersWithLocation[username] = {
+            usersWithLocation[hashId] = {
+              username: username,
               lat: lat,
               long: long,
               time: time,
@@ -92,4 +97,11 @@ export default async function auditSearch({
   } else {
     return false;
   }
+}
+
+
+const createUniqueUserLocId = (username: string, lat: string, long: string) => {
+  const hash = crypto.createHash('sha256');
+  hash.update(username + lat + long);
+  return hash.digest('hex');
 }

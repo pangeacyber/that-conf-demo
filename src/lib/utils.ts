@@ -6,5 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export type UserLocationType = {
-  [username: string]: {lat: string, long: string, time: string, is_vpn: boolean, is_proxy: boolean}
+  [username: string]: {username: string, lat: string, long: string, time: string, is_vpn: boolean, is_proxy: boolean}
 }
