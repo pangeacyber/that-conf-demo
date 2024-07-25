@@ -5,7 +5,6 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet'
 import React, { useEffect } from "react";
 import axios from 'axios';
 import { toast } from "./ui/use-toast";
@@ -46,19 +45,17 @@ export default function Map() {
         console.log(markerData);
     }, [markerData])
 
-    
-
     return(
         <div>
             <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <DateRangePicker
-                        label="Event duration"
-                        visibleMonths={1}
-                        pageBehavior="single"
-                        value={value}
-                        onChange={setValue}
+                            label="Date & Time Range"
+                            visibleMonths={1}
+                            pageBehavior="single"
+                            value={value}
+                            onChange={setValue}
                         />
                     </div>
                 </div>

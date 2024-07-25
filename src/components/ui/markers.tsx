@@ -4,10 +4,12 @@
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
+import { parseAbsoluteToLocal, toCalendarDate, toTime} from "@internationalized/date";
+
 
 import {Marker, Popup } from 'react-leaflet';
-import MarkerClusterGroup from "react-leaflet-cluster";
 import L from 'leaflet'
+
 
 const tree_Icon = L.icon({
     iconUrl: 'Tree.png',
@@ -27,24 +29,35 @@ const cheese_Icon = L.icon({
     iconUrl: 'Cheese.png',
     iconSize:     [38, 45], // size of the icon
     iconAnchor:   [5, 50], // point of the icon which will correspond to marker's location
-    popupAnchor:  [10, -46] // point from which the popup should open relative to the iconAnchor
+    popupAnchor:  [10, -46], // point from which the popup should open relative to the iconAnchor
 });
-
-
 
 export function Markers({data}: any){
 
     const icons_array = [tree_Icon, unicorn_Icon, cheese_Icon];
     let int = Math.floor(Math.random() * icons_array.length);
+    let deci_lat = (Math.random()/ 100).toPrecision(5);
 
     return(
         <>
             {Object.keys(data).length > 0 ?
                 Object.entries(data).map((key) => (
-                    <Marker position={[key[1].lat, key[1].long]} icon={icons_array[int]}>
+                    <Marker 
+                        position={[
+                                key[1].lat + parseFloat((Math.random()/ 100).toPrecision(3)), 
+                                key[1].long + parseFloat((Math.random()/ 100).toPrecision(3))
+                            ]} 
+                        icon= {icons_array[Math.floor(Math.random() * icons_array.length)]}
+                        >
                         <Popup>
                             email: {key[0].toString()}<br/>
-                            {key[1].time}
+                            date: {
+                              (toCalendarDate(parseAbsoluteToLocal(key[1].time)).toString())
+                            } <br/>
+                            time: {
+                                 (toTime(parseAbsoluteToLocal(key[1].time)).toString())
+                            } <br/>
+                            
                         </Popup>
                     </Marker>
                 )

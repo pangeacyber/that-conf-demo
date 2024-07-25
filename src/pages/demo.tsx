@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Toaster } from '@/components/ui/toaster';
 import { NavBar } from '@/components/ui/navbar';
-import Selector from '@/components/ui/selector';
 
 const Map = dynamic(() => import('@/components/Map'),{ 
     loading: () => <p>A map is loading</p>,
@@ -40,10 +39,10 @@ export default function Demo() {
           <div className="mx-auto p-4 sm:p-6 md:p-8">
             <img className="max-w-6xl space-y-4 mx-auto" src='demoFlow.png'></img>
             <p className="text-muted-foreground">Choose a start and end date and time for your event.</p>
-            <Selector ></Selector>
+            <Map/>
           </div>
           
-          <Map/>
+         
           <Toaster />
         </div>
           

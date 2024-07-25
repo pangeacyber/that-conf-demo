@@ -2,7 +2,7 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { AuthProvider } from "@pangeacyber/react-auth";
 import { Inter as FontSans } from "next/font/google"
-
+import {NextUIProvider} from "@nextui-org/react";
 import { cn } from "@/lib/utils"
  
 const fontSans = FontSans({
@@ -20,9 +20,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <AuthProvider config={authConfig} loginUrl={hostedLoginURL}>
-      <Component className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable)} {...pageProps} />
+      <NextUIProvider>
+        <Component className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            fontSans.variable)} {...pageProps} />
+      </NextUIProvider>
     </AuthProvider>
   )
 }
