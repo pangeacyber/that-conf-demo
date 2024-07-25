@@ -5,12 +5,17 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet'
 import React, { useEffect } from "react";
 import axios from 'axios';
 import { toast } from "./ui/use-toast";
 import {DateRangePicker} from "@nextui-org/react";
 import {now, getLocalTimeZone,ZonedDateTime } from "@internationalized/date";
 import { Button } from "./ui/button";
+import { Markers } from "./ui/markers";
+
+/* https://docs.stadiamaps.com/map-styles/alidade-smooth-dark/ */
+
 
 export default function Map() {
     let nw =  now(getLocalTimeZone());
@@ -36,7 +41,7 @@ export default function Map() {
         fetchData().catch(console.error)
     }, [value]);
 
-
+    
     useEffect(() => {
         console.log(markerData);
     }, [markerData])
@@ -72,27 +77,21 @@ export default function Map() {
 
         </div>
 
-        <MapContainer 
-            center={[42.515, -96.79]} 
-            zoom={11} 
+        <MapContainer
+            style={ {height: "100vh"}}            
+            center={[42.515, -96.79]}
+            zoom={4}
+            minZoom={3}
+            maxZoom={19}
             scrollWheelZoom={true}
-            style={{ height: "400px", width: "600px" }}
         >
+            
             <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution=''
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
             />
-            {Object.keys(markerData).length > 0 ?
-                Object.entries(markerData).map((key,value) => (
-                            <Marker position={[key[1].lat, key[1].long]}>
-                                <Popup>
-                                    email: {key[0].toString()}
-                                </Popup>
-                            </Marker>
-                ))
-            : <></>}
-
-        </MapContainer>
+            <Markers data={markerData}></Markers>
+        </MapContainer>  
         </div>
     )
 }
