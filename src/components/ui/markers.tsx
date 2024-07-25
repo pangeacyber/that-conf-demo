@@ -35,8 +35,6 @@ const cheese_Icon = L.icon({
 export function Markers({data}: any){
 
     const icons_array = [tree_Icon, unicorn_Icon, cheese_Icon];
-    let int = Math.floor(Math.random() * icons_array.length);
-    let deci_lat = (Math.random()/ 100).toPrecision(5);
 
     return(
         <>

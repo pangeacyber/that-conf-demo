@@ -49,28 +49,33 @@ export default async function auditSearch({
 
     try {
       // search query to fetch all users who logged in and signedup
-      const logResponse = await audit.search('action:"login" OR action:"user self signup"',{end: (end).toAbsoluteString() , start: (start).toAbsoluteString()}, {});
+      const logResponse = await audit.search('action:login OR action:"user self signup"',{start: (start).toAbsoluteString()}, {});
 
       if(logResponse.success) {
-        
         logResponse.result.events.forEach(element => {
           let service_feat = element.envelope.event.action.toString()
           let time = element.envelope.event.timestamp.toString()
           let context_str = element.envelope.event.external_context.toString()
           let context = JSON.parse(element.envelope.event.external_context.toString())
 
-          if (service_feat.includes("login")) {
+          let username = context.actor.username
+        
+          // Get lat and long. Will return undefined for each variable if geolocation data is not attached
+          let lat = context.request?.intelligence?.ip_intel?.geolocation?.latitude;
+          let long = context.request?.intelligence?.ip_intel?.geolocation?.longitude;
+          let is_vpn = context.request?.intelligence?.ip_intel?.is_vpn;
+          let is_proxy = context.request?.intelligence?.ip_intel?.is_proxy;
+
+          if(checkIfEmail(username) && lat && long){
             console.log("PERSON" + context.actor.username)
-            let username = context.actor.username
-          
-            console.log(checkIfEmail(username))
-            if(checkIfEmail(username) && context_str.includes("city")){
-              //console.log("found " + JSON.stringify(context.request.intelligence.ip_intel.geolocation))
-              let lat = context.request.intelligence.ip_intel.geolocation.latitude;
-              let long = context.request.intelligence.ip_intel.geolocation.longitude;
-              console.log("Place Lat: " + lat + " and long: " + long)
-              
-              usersWithLocation[username] = {lat: lat, long: long, time: time}
+            console.log("Place Lat: " + lat + " and long: " + long)
+            
+            usersWithLocation[username] = {
+              lat: lat,
+              long: long,
+              time: time,
+              is_vpn: is_vpn ? true : false,
+              is_proxy: is_proxy ? true : false
             }
           }
         });
