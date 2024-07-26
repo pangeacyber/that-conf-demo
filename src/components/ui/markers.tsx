@@ -6,7 +6,6 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 import { parseAbsoluteToLocal, toCalendarDate, toTime} from "@internationalized/date";
 
-
 import {Marker, Popup } from 'react-leaflet';
 import L from 'leaflet'
 
@@ -53,7 +52,7 @@ export function Markers({data}: any){
                               (toCalendarDate(parseAbsoluteToLocal(key[1].time)).toString())
                             } <br/>
                             time: {
-                                 (toTime(parseAbsoluteToLocal(key[1].time)).toString())
+                                 (toTime(parseAbsoluteToLocal(key[1].time)).toString()).slice(0,5)
                             } <br/>
                             is_vpn: {key[1].is_vpn.toString()} <br/>
                             is_proxy: {key[1].is_proxy.toString()} 

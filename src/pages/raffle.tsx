@@ -2,6 +2,8 @@ import RaffleComponent from '@/components/raffle-component';
 import { useAuth } from '@pangeacyber/react-auth';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { NavBar } from '@/components/ui/navbar';
+
 
 export default function Raffle() {
 
@@ -18,6 +20,7 @@ export default function Raffle() {
    
     return (
       <>
+        <NavBar/>
         <RaffleComponent user={user} />
       </>
     )

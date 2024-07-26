@@ -4,11 +4,13 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import React, { useEffect } from "react";
 import axios from 'axios';
 import { toast } from "./ui/use-toast";
-import {DateRangePicker} from "@nextui-org/react";
+import { DatePicker } from "@nextui-org/date-picker";
 import {now, getLocalTimeZone,ZonedDateTime } from "@internationalized/date";
 import { Button } from "./ui/button";
 import { Markers } from "./ui/markers";
@@ -20,19 +22,19 @@ export default function Map() {
     let nw =  now(getLocalTimeZone());
     let then = nw.subtract({days: 5});
 
-  
-    let [value, setValue] = React.useState({
-      start: then,
-      end: nw
-    });
+    const [value, setValue] = React.useState(then);
     
     const [markerData, setMarkerData] = React.useState(
         {}
     )
 
+    const [ polling, setPolling] = React.useState(
+     false  
+    );
+
     useEffect(() => {
         const fetchData = async () => {
-            let res = await getMarkerData(value.start, value.end)
+            let res = await getMarkerData(value)
             console.log(res);   
             setMarkerData(res);
         }
@@ -47,31 +49,32 @@ export default function Map() {
 
     return(
         <div>
-            <div className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                        <DateRangePicker
-                            label="Date & Time Range"
-                            visibleMonths={1}
-                            pageBehavior="single"
-                            value={value}
-                            onChange={setValue}
-                        />
-                    </div>
-                </div>
-               
-            <Button type="submit" className="ml-auto" onClick={
-                async e =>
-                {
-                    console.log("HEY THIS IS THE VALUE ON SUBMIT" + JSON.stringify(value))
-                    let res = await getMarkerData(value.start, value.end);
-                    setMarkerData(res);
-                }
-            }
-            >
-                Confirm
-            </Button>
+            <div>
+                <div className="flex flex-row flex-wrap p-6">
+                    <DatePicker
+                        className=" basis-1/4 px-3"
+                        value={value}
+                        labelPlacement="outside"
+                        onChange={setValue}
 
+                    />
+                    <div className=" flex items-center space-x-2 px-4">
+                        <Switch id="polling"
+                            checked={polling}
+                            onCheckedChange={setPolling}
+                        />
+                        <Label htmlFor="polling">Polling</Label>
+                    </div>
+                    
+                    <Button type="submit" className="px-4" onClick={
+                            async e =>
+                            {
+                                console.log("HEY THIS IS THE VALUE ON SUBMIT" + JSON.stringify(value))
+                                let res = await getMarkerData(value);
+                                setMarkerData(res);
+                            }
+                        }>Confirm</Button>         
+                </div>
         </div>
 
         <MapContainer
@@ -94,11 +97,10 @@ export default function Map() {
 }
 
 
-async function getMarkerData(start:ZonedDateTime, end: ZonedDateTime) {
+async function getMarkerData(start:ZonedDateTime) {
 
     let res = await axios.post('/api/audit-search', {
-        startTime: start,
-        endTime: end
+        startTime: start
     }).catch(error => {
         console.log("ERROR" + JSON.stringify(error))
         toast({

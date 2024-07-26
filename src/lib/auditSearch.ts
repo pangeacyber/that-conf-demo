@@ -13,8 +13,7 @@ const checkIfEmail = (email: string) => {
 
 
 export default async function auditSearch({
-  startTime,
-  endTime }: any) {
+  startTime}: any) {
 
  let start = new ZonedDateTime(
   startTime.year, 
@@ -26,18 +25,7 @@ export default async function auditSearch({
   startTime.minute,
   startTime.second);
 
-  let end = new ZonedDateTime(
-    endTime.year, 
-    endTime.month, 
-    endTime.day,
-    endTime.timeZone,
-    endTime.offset,
-    endTime.hour,
-    endTime.minute,
-    endTime.second);
-
   console.log("start time: " + (start).toAbsoluteString())
-  console.log("end time: " + (end).toAbsoluteString())
 
   if(process.env.PANGEA_TOKEN) {
     const token = process.env.PANGEA_TOKEN as string;
@@ -54,9 +42,7 @@ export default async function auditSearch({
 
       if(logResponse.success) {
         logResponse.result.events.forEach(element => {
-          let service_feat = element.envelope.event.action.toString()
           let time = element.envelope.event.timestamp.toString()
-          let context_str = element.envelope.event.external_context.toString()
           let context = JSON.parse(element.envelope.event.external_context.toString())
 
           let username = context.actor.username
