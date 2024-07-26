@@ -21,7 +21,7 @@ export default function Raffle() {
     return (
       <>
         <NavBar/>
-        <RaffleComponent user={user} />
+        <RaffleComponent />
       </>
     )
 }

@@ -47,12 +47,12 @@ import Image from "next/image";
           </NavbarBrand>
           <NavbarItem>
             <Link color="foreground" href="/demo">
-              Demo
+              Demo ⚡️
             </Link>
           </NavbarItem>
           <NavbarItem>
             <Link color="foreground" href="/raffle">
-              Raffle
+              Raffle 🎁
             </Link>
           </NavbarItem>
           <Dropdown>
@@ -63,7 +63,7 @@ import Image from "next/image";
                     radius="md"
                     variant="light"
                 >
-                    Learn More
+                    Learn More 💡
                 </Button>
                 </DropdownTrigger>
             </NavbarItem>

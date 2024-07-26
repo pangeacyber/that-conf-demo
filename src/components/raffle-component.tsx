@@ -12,33 +12,35 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import axios from "axios"
 import { DateRangePicker } from "@nextui-org/date-picker"
 import {now, getLocalTimeZone, } from "@internationalized/date";
-import { tsParticles } from "@tsparticles/engine";
-import { loadEmojiShape } from "@tsparticles/shape-emoji";
+import { toast } from "./ui/use-toast"
+// import { tsParticles } from "@tsparticles/engine";
+// import { loadEmojiShape } from "@tsparticles/shape-emoji";
+
+type Winner = {
+  image_url: string | "";
+  name: string | "";
+  email: string | "";
+};
 
 export default function RaffleComponent() {
-  const [winner, setWinner] = useState(null)
+  const [winner, setWinner] = useState<Winner | null>(null)
   const pickWinner = async () => {
-    await loadEmojiShape(tsParticles);
+    // await loadEmojiShape(tsParticles);
 
-    const winnerResp = await axios.post("/api/pick-winner",  {
-      startTime: value.start,
-      endTime: value.end
-    })
-    
-    await tsParticles.load({
-      id: "tsparticles",
-      options: {
-        /* options */
-        /* here you can use particles.shape.type: "emoji" */
-        particles: {
-          shape: {
-            type: ["💅", "💩"]
-          }
-        }
-      },
-    });
-
-    setWinner(winnerResp.data);
+    try {
+      const winnerResp = await axios.post("/api/pick-winner",  {
+        startTime: value.start,
+        endTime: value.end
+      })
+      setWinner(winnerResp.data);
+    }
+    catch(error) {
+      console.log(error);
+      toast({
+          title: "Error: Unable to send Pangea Requests",
+          description: "Please check your console logs for detailed information."
+      })
+    }
 
   }
 
@@ -90,8 +92,8 @@ export default function RaffleComponent() {
           <Card className="bg-card text-card-foreground">
             <CardContent className="flex items-center gap-4">
               <Avatar className="h-16 w-16">
-                <AvatarImage src={winner.image_url} />
-                <AvatarFallback>{winner.name}</AvatarFallback>
+                <AvatarImage src={winner?.image_url} />
+                <AvatarFallback>{winner?.name}</AvatarFallback>
               </Avatar>
               <div className="grid gap-1">
                 <div className="font-semibold">{winner.name}</div>

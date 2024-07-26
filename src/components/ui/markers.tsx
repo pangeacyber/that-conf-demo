@@ -8,6 +8,7 @@ import { parseAbsoluteToLocal, toCalendarDate, toTime} from "@internationalized/
 
 import {Marker, Popup } from 'react-leaflet';
 import L from 'leaflet'
+import { UserLocationType } from "@/lib/utils";
 
 
 const tree_Icon = L.icon({
@@ -38,24 +39,24 @@ export function Markers({data}: any){
     return(
         <>
             {Object.keys(data).length > 0 ?
-                Object.entries(data).map((key) => (
+                Object.entries(data).map(([key, value]: [string, any]) => (
                     <Marker 
                         position={[
-                                key[1].lat + parseFloat((Math.random()/ 100).toPrecision(3)), 
-                                key[1].long + parseFloat((Math.random()/ 100).toPrecision(3))
-                            ]} 
+                                value.lat + parseFloat((Math.random()/ 100).toPrecision(3)), 
+                                value.long + parseFloat((Math.random()/ 100).toPrecision(3))
+                            ]}
                         icon= {icons_array[Math.floor(Math.random() * icons_array.length)]}
                         >
                         <Popup>
-                            email: {key[1].username}<br/>
+                            email: {value.username}<br/>
                             date: {
-                              (toCalendarDate(parseAbsoluteToLocal(key[1].time)).toString())
+                              (toCalendarDate(parseAbsoluteToLocal(value.time)).toString())
                             } <br/>
                             time: {
-                                 (toTime(parseAbsoluteToLocal(key[1].time)).toString()).slice(0,5)
+                                 (toTime(parseAbsoluteToLocal(value.time)).toString()).slice(0,5)
                             } <br/>
-                            is_vpn: {key[1].is_vpn.toString()} <br/>
-                            is_proxy: {key[1].is_proxy.toString()} 
+                            is_vpn: {value.is_vpn.toString()} <br/>
+                            is_proxy: {value.is_proxy.toString()} 
                         </Popup>
                     </Marker>
                 )

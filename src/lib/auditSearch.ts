@@ -73,15 +73,18 @@ export default async function auditSearch({
 
         return usersWithLocation;
       }
+
+      throw Error("Error querying Pangea API");
     } catch (err) {
       if (err instanceof PangeaErrors.APIError) {
         console.log(err.summary, err.pangeaResponse);
+        throw err;
       } else {
         throw err;
       }
     }
   } else {
-    return false;
+    throw Error("No PANGEA_TOKEN found.");
   }
 }
 
