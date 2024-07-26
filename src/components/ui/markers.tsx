@@ -42,9 +42,9 @@ export function Markers({data}: any){
                 Object.entries(data).map(([key, value]: [string, any]) => (
                     <Marker 
                         position={[
-                                value.lat + parseFloat((Math.random()/ 100).toPrecision(3)), 
-                                value.long + parseFloat((Math.random()/ 100).toPrecision(3))
-                            ]}
+                                value.lat + parseFloat((Math.random()/ 10000).toPrecision(2)), 
+                                value.long + parseFloat((Math.random()/ 10000).toPrecision(2))
+                            ]} 
                         icon= {icons_array[Math.floor(Math.random() * icons_array.length)]}
                         >
                         <Popup>

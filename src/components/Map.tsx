@@ -62,7 +62,7 @@ export default function Map() {
 
     return(
         <div>
-            <div>
+            <div className="sm:p-1 md:px-10">
                 <div className="flex flex-row flex-wrap p-6">
                     <DatePicker
                         className=" basis-1/4 px-3"
@@ -87,23 +87,24 @@ export default function Map() {
                             }
                         }>Confirm</Button>         
                 </div>
-        </div>
-
-        <MapContainer
-            style={ {height: "100vh"}}            
-            center={[42.515, -96.79]}
-            zoom={4}
-            minZoom={3}
-            maxZoom={19}
-            scrollWheelZoom={true}
-        >
-            
-            <TileLayer
-                attribution=''
-                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-            />
-            <Markers data={markerData}></Markers>
-        </MapContainer>  
+            </div>
+            <div className="sm:px-10 md:px-20">
+                <MapContainer
+                    style={ {height: "100vh"}}            
+                    center={[42.515, -96.79]}
+                    zoom={4}
+                    minZoom={3}
+                    maxZoom={19}
+                    scrollWheelZoom={true}
+                >
+                    
+                    <TileLayer
+                        attribution=''
+                        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+                    />
+                    <Markers data={markerData}></Markers>
+                </MapContainer>  
+            </div>
         </div>
     )
 }
