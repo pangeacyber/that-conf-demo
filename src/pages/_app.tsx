@@ -1,10 +1,17 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { AuthProvider } from "@pangeacyber/react-auth";
-import { Inter as FontSans } from "next/font/google"
+import { Inter as FontSans, Kanit } from "next/font/google"
 import {NextUIProvider} from "@nextui-org/react";
 import { cn } from "@/lib/utils"
- 
+
+const kanit = Kanit ({
+  weight: ['300', '400'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-kanit'
+})
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -23,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <NextUIProvider>
         <Component className={cn(
             "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable)} {...pageProps} />
+            kanit.variable)} {...pageProps} />
       </NextUIProvider>
     </AuthProvider>
   )

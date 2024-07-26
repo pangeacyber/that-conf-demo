@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Toaster } from '@/components/ui/toaster';
 import { NavBar } from '@/components/ui/navbar';
+import { Footer } from '@/components/ui/footer';
 
 const Map = dynamic(() => import('@/components/Map'),{ 
     loading: () => <p>A map is loading</p>,
@@ -42,6 +43,8 @@ export default function Demo() {
           
          
           <Toaster />
+          <Footer />
+
         </div>
           
        ):  (
