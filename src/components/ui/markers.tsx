@@ -48,7 +48,7 @@ export function Markers({data}: any){
                         icon= {icons_array[Math.floor(Math.random() * icons_array.length)]}
                         >
                         <Popup>
-                            email: {value.username}<br/>
+                            email: ***{value.username.slice(3)}<br/>
                             date: {
                               (toCalendarDate(parseAbsoluteToLocal(value.time)).toString())
                             } <br/>
@@ -56,7 +56,7 @@ export function Markers({data}: any){
                                  (toTime(parseAbsoluteToLocal(value.time)).toString()).slice(0,5)
                             } <br/>
                             is_vpn: {value.is_vpn.toString()} <br/>
-                            is_proxy: {value.is_proxy.toString()} 
+                            is_proxy: {value.is_proxy.toString()}
                         </Popup>
                     </Marker>
                 )

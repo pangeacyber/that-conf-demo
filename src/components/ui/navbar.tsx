@@ -104,6 +104,11 @@ import Image from "next/image";
                     </DropdownItem>
                 </DropdownMenu>
             </Dropdown>
+            <NavbarItem>
+            <Link className="font-bold text-large" color="foreground" href="https://thatconf.vercel.app/">
+              thatconf.vercel.app
+            </Link>
+          </NavbarItem>
         </NavbarContent>
   
         <NavbarContent justify="end">
