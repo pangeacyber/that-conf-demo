@@ -35,7 +35,7 @@ export default function Demo() {
                 <h1 className="text-2xl font-bold text-center">You're Authenticated</h1>
             </div>
           </div>
-          <img className="space-y-4 mx-auto sm:pb-6" src='demoFlow.png'></img>
+          <img className="space-y-4 mx-auto sm:pb-6" src='DiagramandQR.png'></img>
           <div>
             <p className="mx-auto px-4 text-muted-foreground">Choose a start and end date and time for your event.</p>
             <Map/>
