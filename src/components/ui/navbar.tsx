@@ -37,24 +37,24 @@ import Image from "next/image";
   
         <NavbarContent className="sm:hidden pr-3" justify="center">
           <NavbarBrand>
-            <Image alt= "" src='/PangeaThat.png' width={180} height={180}></Image>
+            <Image alt= "" src='/pangea-logomark.png' width={180} height={180}></Image>
           </NavbarBrand>
         </NavbarContent>
   
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarBrand className="float-right">
-            <Image alt= "" src='/PangeaThat.png' width={180} height={180}></Image>
+            <Image alt= "" src='/pangea-logomark.png' width={180} height={180}></Image>
           </NavbarBrand>
-          <NavbarItem>
+          {/* <NavbarItem>
             <Link color="foreground" href="/demo">
               Demo ⚡️
             </Link>
-          </NavbarItem>
-          <NavbarItem>
+          </NavbarItem> */}
+          {/* <NavbarItem>
             <Link color="foreground" href="/raffle">
               Raffle 🎁
             </Link>
-          </NavbarItem>
+          </NavbarItem> */}
           <Dropdown>
             <NavbarItem>
                 <DropdownTrigger>
