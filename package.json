@@ -43,7 +43,7 @@
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "leaflet-providers": "^2.0.0",
     "leaflet.markercluster": "^1.5.3",
-    "lucide-react": "^0.408.0",
+    "lucide-react": "^0.544.0",
     "mapbox-gl": "^3.5.2",
     "next": "^14.2.33",
     "pangea-node-sdk": "^3.10.0",
