@@ -38,7 +38,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "deck.gl": "^9.2.5",
-    "framer-motion": "^12.23.25",
+    "framer-motion": "^12.23.26",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "leaflet-providers": "^3.0.0",
